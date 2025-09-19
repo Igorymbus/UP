@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<head>
+    <title>Главная - Guitar Shop</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-guitar guitar-icon"></i>
+                Добро пожаловать в Guitar Shop
+            </h1>
+            <p class="page-subtitle">Лучший магазин гитар с полным ассортиментом и качественным сервисом</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" th:text="${guitarCount ?: '0'}">0</div>
+                <div class="stat-label">Гитар в наличии</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" th:text="${brandCount ?: '0'}">0</div>
+                <div class="stat-label">Брендов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" th:text="${categoryCount ?: '0'}">0</div>
+                <div class="stat-label">Категорий</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" th:text="${customerCount ?: '0'}">0</div>
+                <div class="stat-label">Клиентов</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="color: #FFD700; margin-bottom: 1.5rem;">
+                <i class="fas fa-star"></i> Наши услуги
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div>
+                    <h3 style="color: #DC143C; margin-bottom: 1rem;">
+                        <i class="fas fa-guitar"></i> Продажа гитар
+                    </h3>
+                    <p>Широкий ассортимент электрогитар, акустических гитар и бас-гитар от ведущих мировых брендов.</p>
+                </div>
+                <div>
+                    <h3 style="color: #DC143C; margin-bottom: 1rem;">
+                        <i class="fas fa-tools"></i> Ремонт и настройка
+                    </h3>
+                    <p>Профессиональная настройка, ремонт и модификация гитар нашими опытными мастерами.</p>
+                </div>
+                <div>
+                    <h3 style="color: #DC143C; margin-bottom: 1rem;">
+                        <i class="fas fa-music"></i> Обучение
+                    </h3>
+                    <p>Индивидуальные и групповые уроки игры на гитаре для музыкантов любого уровня.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="color: #FFD700; margin-bottom: 1.5rem;">
+                <i class="fas fa-fire"></i> Популярные бренды
+            </h2>
+            <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;">
+                <div style="background: #444; padding: 1rem 2rem; border-radius: 10px; font-weight: bold; color: #FFD700;">
+                    FENDER
+                </div>
+                <div style="background: #444; padding: 1rem 2rem; border-radius: 10px; font-weight: bold; color: #FFD700;">
+                    GIBSON
+                </div>
+                <div style="background: #444; padding: 1rem 2rem; border-radius: 10px; font-weight: bold; color: #FFD700;">
+                    MARTIN
+                </div>
+                <div style="background: #444; padding: 1rem 2rem; border-radius: 10px; font-weight: bold; color: #FFD700;">
+                    TAYLOR
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/guitars" class="btn" style="font-size: 1.2rem; padding: 1rem 2rem;">
+                <i class="fas fa-shopping-cart"></i> Перейти к каталогу
+            </a>
+        </div>
+    </div>
+</body>
+</html>

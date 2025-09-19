@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<head>
+    <title>Клиенты - Guitar Shop</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-users guitar-icon"></i>
+                База клиентов
+            </h1>
+            <p class="page-subtitle">Управление клиентской базой магазина</p>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="color: #FFD700; margin: 0;">
+                    <i class="fas fa-address-book"></i> Список клиентов
+                </h2>
+                <a href="/customers/new" class="btn">
+                    <i class="fas fa-plus"></i> Добавить клиента
+                </a>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-hashtag"></i> ID</th>
+                            <th><i class="fas fa-user"></i> Полное имя</th>
+                            <th><i class="fas fa-envelope"></i> Email</th>
+                            <th><i class="fas fa-cogs"></i> Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="c : ${customers}">
+                            <td th:text="${c.id}"></td>
+                            <td>
+                                <strong th:text="${c.fullName}" style="color: #FFD700;"></strong>
+                            </td>
+                            <td>
+                                <a th:href="'mailto:' + ${c.email}" 
+                                   style="color: #4CAF50; text-decoration: none;" 
+                                   th:text="${c.email}"></a>
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    <a th:href="@{'/customers/' + ${c.id} + '/edit'}" class="btn btn-secondary btn-small">
+                                        <i class="fas fa-edit"></i> Редактировать
+                                    </a>
+                                    <form th:action="@{'/customers/' + ${c.id} + '/delete'}" method="post" style="display:inline">
+                                        <button type="submit" class="btn btn-danger btn-small" 
+                                                onclick="return confirm('Вы уверены, что хотите удалить этого клиента?')">
+                                            <i class="fas fa-trash"></i> Удалить
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

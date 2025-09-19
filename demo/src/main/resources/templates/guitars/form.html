@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<head>
+    <title th:text="${guitar.id} == null ? 'Добавить гитару - Guitar Shop' : 'Редактировать гитару - Guitar Shop'">Гитара - Guitar Shop</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-guitar guitar-icon"></i>
+                <span th:text="${guitar.id} == null ? 'Добавить новую гитару' : 'Редактировать гитару'"></span>
+            </h1>
+            <p class="page-subtitle">Заполните информацию о музыкальном инструменте</p>
+        </div>
+
+        <div class="card">
+            <form th:action="${guitar.id} == null ? @{/guitars} : @{'/guitars/' + ${guitar.id}}" method="post" th:object="${guitar}">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="form-group">
+                        <label for="model">
+                            <i class="fas fa-guitar"></i> Модель гитары *
+                        </label>
+                        <input type="text" id="model" th:field="*{model}" class="form-control" 
+                               placeholder="Например: Stratocaster, Les Paul..." required/>
+                        <div th:if="${#fields.hasErrors('model')}" th:errors="*{model}" class="error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="color">
+                            <i class="fas fa-palette"></i> Цвет
+                        </label>
+                        <input type="text" id="color" th:field="*{color}" class="form-control" 
+                               placeholder="Например: Черный, Красный, Натуральный..."/>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="form-group">
+                        <label for="price">
+                            <i class="fas fa-dollar-sign"></i> Цена ($) *
+                        </label>
+                        <input type="number" id="price" step="0.01" min="0" th:field="*{price}" class="form-control" 
+                               placeholder="0.00" required/>
+                        <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stock">
+                            <i class="fas fa-boxes"></i> Количество на складе *
+                        </label>
+                        <input type="number" id="stock" min="0" th:field="*{stock}" class="form-control" 
+                               placeholder="0" required/>
+                        <div th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="error"></div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="form-group">
+                        <label for="brand">
+                            <i class="fas fa-tag"></i> Бренд *
+                        </label>
+                        <select id="brand" th:field="*{brand}" class="form-control" required>
+                            <option value="">Выберите бренд...</option>
+                            <option th:each="b : ${brands}" th:value="${b}" th:text="${b.name}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">
+                            <i class="fas fa-list"></i> Категория *
+                        </label>
+                        <select id="category" th:field="*{category}" class="form-control" required>
+                            <option value="">Выберите категорию...</option>
+                            <option th:each="c : ${categories}" th:value="${c}" th:text="${c.name}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn">
+                        <i class="fas fa-save"></i> 
+                        <span th:text="${guitar.id} == null ? 'Создать гитару' : 'Сохранить изменения'"></span>
+                    </button>
+                    <a th:href="@{/guitars}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Назад к списку
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
